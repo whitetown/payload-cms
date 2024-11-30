@@ -9,6 +9,7 @@ export const Partners: Block = {
             type: 'relationship',
             relationTo: 'partners',
             hasMany: true,
+            required: true,
         },
     ],
 }

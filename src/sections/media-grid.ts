@@ -9,6 +9,7 @@ export const MediaGrid: Block = {
             name: 'items',
             type: 'array',
             fields: [Media],
+            required: true,
         },
     ],
 }

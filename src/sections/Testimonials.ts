@@ -9,6 +9,7 @@ export const Testimonials: Block = {
             type: 'relationship',
             relationTo: 'testimonials',
             hasMany: true,
+            required: true,
         },
     ],
 }

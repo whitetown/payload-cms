@@ -13,8 +13,10 @@ export const Longread: Block = {
                 {
                     name: 'text',
                     type: 'richText',
+                    required: true,
                 },
             ],
+            required: true,
         },
         {
             name: 'options',

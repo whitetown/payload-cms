@@ -1,6 +1,7 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { FixedToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -18,6 +19,27 @@ import { Testimonials } from './collections/Testimonials'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const MediaStorage =
+    process.env.S3_ACCESS_KEY_ID && process.env.S3_SECRET_ACCESS_KEY
+        ? [
+              s3Storage({
+                  collections: {
+                      media: true,
+                  },
+                  bucket: process.env.S3_BUCKET || '',
+                  config: {
+                      credentials: {
+                          accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+                          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+                      },
+                      region: process.env.S3_REGION,
+                      // ... Other S3 configuration
+                  },
+                  acl: 'public-read', // Make files public by default
+              }),
+          ]
+        : []
 
 export default buildConfig({
     admin: {
@@ -42,5 +64,6 @@ export default buildConfig({
     plugins: [
         payloadCloudPlugin(),
         // storage-adapter-placeholder
+        ...MediaStorage,
     ],
 })

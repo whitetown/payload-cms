@@ -24,6 +24,7 @@ export const Collection: Block = {
             name: 'items',
             type: 'array',
             fields: [Brick],
+            required: true,
         },
         {
             name: 'options',

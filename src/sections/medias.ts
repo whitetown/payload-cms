@@ -9,6 +9,7 @@ export const Medias: Block = {
             name: 'items',
             type: 'array',
             fields: [Media],
+            required: true,
         },
     ],
 }

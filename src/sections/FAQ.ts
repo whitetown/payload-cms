@@ -9,6 +9,7 @@ export const FAQ: Block = {
             type: 'relationship',
             relationTo: 'faqentries',
             hasMany: true,
+            required: true,
         },
     ],
 }

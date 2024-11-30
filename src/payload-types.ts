@@ -138,7 +138,7 @@ export interface Hero {
   CTA?: boolean | null;
   cta?: {
     title: string;
-    icon?: string | null;
+    icon: 'default';
     color: 'default' | 'primary' | 'secondary' | 'accent' | 'success' | 'error' | 'warning' | 'info' | 'neutral';
     variant: 'solid' | 'outline' | 'tint' | 'ghost';
     url?: string | null;
@@ -175,7 +175,7 @@ export interface Content {
   CTA?: boolean | null;
   cta?: {
     title: string;
-    icon?: string | null;
+    icon: 'default';
     color: 'default' | 'primary' | 'secondary' | 'accent' | 'success' | 'error' | 'warning' | 'info' | 'neutral';
     variant: 'solid' | 'outline' | 'tint' | 'ghost';
     url?: string | null;
@@ -200,20 +200,18 @@ export interface Content {
  */
 export interface Collection {
   kind: 'cards' | 'tabs' | 'grid' | 'flex' | 'list' | 'progress' | 'instructions';
-  items?:
-    | {
-        brick?: {
-          headline?: string | null;
-          title?: string | null;
-          subtitle?: string | null;
-          icon?: string | null;
-          image?: (number | null) | Media;
-          url?: string | null;
-          page?: (number | null) | Page;
-        };
-        id?: string | null;
-      }[]
-    | null;
+  items: {
+    brick: {
+      headline?: string | null;
+      title?: string | null;
+      subtitle?: string | null;
+      icon: 'default';
+      image?: (number | null) | Media;
+      url?: string | null;
+      page?: (number | null) | Page;
+    };
+    id?: string | null;
+  }[];
   options?:
     | {
         [k: string]: unknown;
@@ -232,26 +230,24 @@ export interface Collection {
  * via the `definition` "Longread".
  */
 export interface Longread {
-  items?:
-    | {
-        text?: {
-          root: {
-            type: string;
-            children: {
-              type: string;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
+  items: {
+    text: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
           [k: string]: unknown;
-        } | null;
-        id?: string | null;
-      }[]
-    | null;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    id?: string | null;
+  }[];
   options?:
     | {
         [k: string]: unknown;
@@ -270,17 +266,15 @@ export interface Longread {
  * via the `definition` "Medias".
  */
 export interface Medias {
-  items?:
-    | {
-        media?: {
-          youtube_id?: string | null;
-          vimeo_id?: string | null;
-          image?: (number | null) | Media;
-          video?: (number | null) | Media;
-        };
-        id?: string | null;
-      }[]
-    | null;
+  items: {
+    media?: {
+      youtube_id?: string | null;
+      vimeo_id?: string | null;
+      image?: (number | null) | Media;
+      video?: (number | null) | Media;
+    };
+    id?: string | null;
+  }[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'medias';
@@ -290,17 +284,15 @@ export interface Medias {
  * via the `definition` "MediaGrid".
  */
 export interface MediaGrid {
-  items?:
-    | {
-        media?: {
-          youtube_id?: string | null;
-          vimeo_id?: string | null;
-          image?: (number | null) | Media;
-          video?: (number | null) | Media;
-        };
-        id?: string | null;
-      }[]
-    | null;
+  items: {
+    media?: {
+      youtube_id?: string | null;
+      vimeo_id?: string | null;
+      image?: (number | null) | Media;
+      video?: (number | null) | Media;
+    };
+    id?: string | null;
+  }[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediagrid';
@@ -310,7 +302,7 @@ export interface MediaGrid {
  * via the `definition` "FAQ".
  */
 export interface FAQ {
-  items?: (number | Faqentry)[] | null;
+  items: (number | Faqentry)[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'faq';
@@ -345,7 +337,7 @@ export interface Faqentry {
  * via the `definition` "Partners".
  */
 export interface Partners {
-  items?: (number | Partner)[] | null;
+  items: (number | Partner)[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'partners';
@@ -382,7 +374,7 @@ export interface Partner {
  * via the `definition` "Testimonials".
  */
 export interface Testimonials {
-  items?: (number | Testimonial)[] | null;
+  items: (number | Testimonial)[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonials';
