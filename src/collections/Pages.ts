@@ -10,6 +10,7 @@ import { MediaGrid } from '@/sections/media-grid'
 import { FAQ } from '@/sections/FAQ'
 import { Partners } from '@/sections/Partners'
 import { Testimonials } from '@/sections/Testimonials'
+import { plain } from './plain'
 
 export const Pages: CollectionConfig = {
     slug: 'pages',
@@ -36,4 +37,5 @@ export const Pages: CollectionConfig = {
             blocks: [Header, Hero, Content, Collection, Longread, Medias, MediaGrid, FAQ, Partners, Testimonials],
         },
     ],
+    endpoints: [plain('pages')],
 }

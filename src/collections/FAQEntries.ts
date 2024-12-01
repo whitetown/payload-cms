@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { plain } from './plain'
 
 export const FAQEntries: CollectionConfig = {
     slug: 'faqentries',
@@ -20,4 +21,5 @@ export const FAQEntries: CollectionConfig = {
             required: true,
         },
     ],
+    endpoints: [plain('faqentries')],
 }

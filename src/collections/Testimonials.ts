@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { plain } from './plain'
 
 export const Testimonials: CollectionConfig = {
     slug: 'testimonials',
@@ -44,4 +45,5 @@ export const Testimonials: CollectionConfig = {
             type: 'text',
         },
     ],
+    endpoints: [plain('testimonials')],
 }
