@@ -1,5 +1,5 @@
 import type { Block } from 'payload'
-import { Media } from '../objects/Media'
+import { MediaItem } from '../objects/MediaItem'
 
 export const Medias: Block = {
     slug: 'medias',
@@ -8,7 +8,7 @@ export const Medias: Block = {
         {
             name: 'items',
             type: 'array',
-            fields: [Media],
+            fields: [MediaItem],
             required: true,
         },
     ],

@@ -1,5 +1,5 @@
 import type { Block } from 'payload'
-import { Media } from '../objects/Media'
+import { MediaItem } from '../objects/MediaItem'
 
 export const MediaGrid: Block = {
     slug: 'mediagrid',
@@ -8,7 +8,7 @@ export const MediaGrid: Block = {
         {
             name: 'items',
             type: 'array',
-            fields: [Media],
+            fields: [MediaItem],
             required: true,
         },
     ],

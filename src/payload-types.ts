@@ -267,7 +267,7 @@ export interface Longread {
  */
 export interface Medias {
   items: {
-    media?: {
+    media_item?: {
       youtube_id?: string | null;
       vimeo_id?: string | null;
       image?: (number | null) | Media;
@@ -285,7 +285,7 @@ export interface Medias {
  */
 export interface MediaGrid {
   items: {
-    media?: {
+    media_item?: {
       youtube_id?: string | null;
       vimeo_id?: string | null;
       image?: (number | null) | Media;
@@ -619,7 +619,7 @@ export interface PagesSelect<T extends boolean = true> {
               items?:
                 | T
                 | {
-                    media?:
+                    media_item?:
                       | T
                       | {
                           youtube_id?: T;
@@ -638,7 +638,7 @@ export interface PagesSelect<T extends boolean = true> {
               items?:
                 | T
                 | {
-                    media?:
+                    media_item?:
                       | T
                       | {
                           youtube_id?: T;

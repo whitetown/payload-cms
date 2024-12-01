@@ -6,8 +6,8 @@ const validator = (value: any, arg: any) => {
     return 'Either youtube_id or vimeo_id or image or video is required.'
 }
 
-export const Media: GroupField = {
-    name: 'media',
+export const MediaItem: GroupField = {
+    name: 'media_item',
     type: 'group',
     fields: [
         {
