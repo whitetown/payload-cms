@@ -4,12 +4,12 @@ type LayoutProps = {
     children: ReactNode
 }
 
-import '../globals.css'
+import './globals.css'
 
 const Layout = ({ children }: LayoutProps) => {
     return (
         <html lang='en'>
-            <body className='text-red-500'>{children}</body>
+            <body>{children}</body>
         </html>
     )
 }

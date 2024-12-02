@@ -4,7 +4,7 @@ import React from 'react'
 
 const Page: NextPage = () => {
     return (
-        <div id='root-page' className='container mx-auto'>
+        <div id='root-page' className='container mx-auto grid gap-4 lg:grid-cols-3 p-8'>
             <div className='text-xs text-red-500'>text-xs</div>
             <div className='text-sm text-green-500'>text-sm</div>
             <div className='text-base text-blue-500'>text-base</div>

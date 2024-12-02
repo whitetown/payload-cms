@@ -6,7 +6,7 @@ export const CTAPresense: Field = {
     type: 'checkbox',
     label: 'Include CTA?',
     admin: {
-        className: 'flex items-end',
+        className: 'flex justify-end',
     },
 }
 

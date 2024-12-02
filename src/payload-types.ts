@@ -17,6 +17,8 @@ export interface Config {
     faqentries: Faqentry;
     partners: Partner;
     testimonials: Testimonial;
+    websites: Website;
+    locales: Locale;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -29,6 +31,8 @@ export interface Config {
     faqentries: FaqentriesSelect<false> | FaqentriesSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
+    websites: WebsitesSelect<false> | WebsitesSelect<true>;
+    locales: LocalesSelect<false> | LocalesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -107,11 +111,50 @@ export interface Media {
  */
 export interface Page {
   id: number;
+  path: string;
   slug: string;
+  website: number | Website;
+  locale: number | Locale;
   title: string;
   sections?:
     | (Header | Hero | Content | Collection | Longread | Medias | MediaGrid | FAQ | Partners | Testimonials)[]
     | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    metatags?:
+      | {
+          metatags: {
+            name: string;
+            value: string;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "websites".
+ */
+export interface Website {
+  id: number;
+  name: string;
+  url: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locales".
+ */
+export interface Locale {
+  id: number;
+  locale: string;
+  name: string;
+  title: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -438,6 +481,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'testimonials';
         value: number | Testimonial;
+      } | null)
+    | ({
+        relationTo: 'websites';
+        value: number | Website;
+      } | null)
+    | ({
+        relationTo: 'locales';
+        value: number | Locale;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -519,7 +570,10 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
+  path?: T;
   slug?: T;
+  website?: T;
+  locale?: T;
   title?: T;
   sections?:
     | T
@@ -673,6 +727,23 @@ export interface PagesSelect<T extends boolean = true> {
               blockName?: T;
             };
       };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        metatags?:
+          | T
+          | {
+              metatags?:
+                | T
+                | {
+                    name?: T;
+                    value?: T;
+                  };
+              id?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -709,6 +780,27 @@ export interface TestimonialsSelect<T extends boolean = true> {
   image?: T;
   description?: T;
   url?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "websites_select".
+ */
+export interface WebsitesSelect<T extends boolean = true> {
+  name?: T;
+  url?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locales_select".
+ */
+export interface LocalesSelect<T extends boolean = true> {
+  locale?: T;
+  name?: T;
+  title?: T;
   updatedAt?: T;
   createdAt?: T;
 }
