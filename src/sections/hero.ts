@@ -22,5 +22,10 @@ export const Hero: Block = {
         },
         { type: 'row', fields: [ImagePlacement, CTAPresense] },
         CTA,
+        {
+            name: 'options',
+            type: 'json',
+            defaultValue: {},
+        },
     ],
 }

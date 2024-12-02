@@ -181,12 +181,21 @@ export interface Hero {
   CTA?: boolean | null;
   cta?: {
     title: string;
-    icon: 'default';
+    icon?: 'default' | null;
     color: 'default' | 'primary' | 'secondary' | 'accent' | 'success' | 'error' | 'warning' | 'info' | 'neutral';
     variant: 'solid' | 'outline' | 'tint' | 'ghost';
     url?: string | null;
     page?: (number | null) | Page;
   };
+  options?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'hero';
@@ -218,7 +227,7 @@ export interface Content {
   CTA?: boolean | null;
   cta?: {
     title: string;
-    icon: 'default';
+    icon?: 'default' | null;
     color: 'default' | 'primary' | 'secondary' | 'accent' | 'success' | 'error' | 'warning' | 'info' | 'neutral';
     variant: 'solid' | 'outline' | 'tint' | 'ghost';
     url?: string | null;
@@ -244,11 +253,11 @@ export interface Content {
 export interface Collection {
   kind: 'cards' | 'tabs' | 'grid' | 'flex' | 'list' | 'progress' | 'instructions';
   items: {
-    brick: {
+    brick?: {
       headline?: string | null;
       title?: string | null;
       subtitle?: string | null;
-      icon: 'default';
+      icon?: 'default' | null;
       image?: (number | null) | Media;
       url?: string | null;
       page?: (number | null) | Page;
@@ -432,21 +441,7 @@ export interface Testimonial {
   company?: string | null;
   position?: string | null;
   image: number | Media;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+  description: string;
   url?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -604,6 +599,7 @@ export interface PagesSelect<T extends boolean = true> {
                     url?: T;
                     page?: T;
                   };
+              options?: T;
               id?: T;
               blockName?: T;
             };

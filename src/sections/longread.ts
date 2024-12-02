@@ -1,5 +1,3 @@
-import { CTA, CTAPresense } from '@/objects/CTA'
-import { ImagePlacement } from '@/objects/ImagePlacement'
 import type { Block } from 'payload'
 
 export const Longread: Block = {
@@ -21,7 +19,7 @@ export const Longread: Block = {
         {
             name: 'options',
             type: 'json',
-            defaultValue: '{}',
+            defaultValue: {},
         },
     ],
 }

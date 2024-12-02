@@ -8,7 +8,7 @@ export const IconField: Field = {
         label: icon, // The label displayed in the dropdown
         value: icon, // The value stored in the database
     })),
-    required: true, // Optional: Make the field required
+    required: false, // Optional: Make the field required
     admin: {
         // description: 'Choose a Lucide icon',
         isClearable: true,

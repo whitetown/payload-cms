@@ -29,7 +29,7 @@ export const Partners: CollectionConfig = {
 
         {
             name: 'description',
-            type: 'richText',
+            type: 'textarea',
         },
 
         {

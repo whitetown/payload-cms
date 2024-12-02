@@ -32,7 +32,7 @@ export const Collection: Block = {
         {
             name: 'options',
             type: 'json',
-            defaultValue: '{}',
+            defaultValue: {},
         },
     ],
 }

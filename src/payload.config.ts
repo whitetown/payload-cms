@@ -15,8 +15,6 @@ import { sk } from '@payloadcms/translations/languages/sk'
 import { ru } from '@payloadcms/translations/languages/ru'
 import { uk } from '@payloadcms/translations/languages/uk'
 
-// import './styles/global.css'
-
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'

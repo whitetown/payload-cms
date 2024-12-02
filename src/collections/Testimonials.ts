@@ -36,7 +36,7 @@ export const Testimonials: CollectionConfig = {
         },
         {
             name: 'description',
-            type: 'richText',
+            type: 'textarea',
             required: true,
         },
 
