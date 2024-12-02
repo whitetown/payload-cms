@@ -19,6 +19,9 @@ export const Collection: Block = {
             ],
             required: true,
             defaultValue: 'cards',
+            admin: {
+                isClearable: false,
+            },
         },
         {
             name: 'items',

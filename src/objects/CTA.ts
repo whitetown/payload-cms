@@ -53,6 +53,9 @@ export const CTA: GroupField = {
                     ],
                     required: true,
                     defaultValue: 'default',
+                    admin: {
+                        isClearable: false,
+                    },
                 },
                 {
                     name: 'variant',
@@ -65,6 +68,9 @@ export const CTA: GroupField = {
                     ],
                     required: true,
                     defaultValue: 'solid',
+                    admin: {
+                        isClearable: false,
+                    },
                 },
             ],
         },

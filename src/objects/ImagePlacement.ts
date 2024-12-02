@@ -12,4 +12,7 @@ export const ImagePlacement: Field = {
     ],
     required: true,
     defaultValue: 'left',
+    admin: {
+        isClearable: false,
+    },
 }
