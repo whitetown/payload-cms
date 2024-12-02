@@ -1,4 +1,6 @@
 import { GroupField } from 'payload'
+import { OptionalImage } from './OptionalImage'
+import { RequiredImage } from './RequiredImage'
 
 const validator = (value: any, arg: any) => {
     if (arg.siblingData.youtube_id || arg.siblingData.vimeo_id || arg.siblingData.image || arg.siblingData.video)
@@ -11,36 +13,62 @@ export const MediaItem: GroupField = {
     type: 'group',
     fields: [
         {
-            type: 'row',
-            fields: [
+            name: 'type',
+            type: 'select',
+            defaultValue: 'photo',
+            options: [
                 {
-                    name: 'youtube_id',
-                    type: 'text',
-                    validate: validator,
+                    label: 'Photo',
+                    value: 'photo',
                 },
                 {
-                    name: 'vimeo_id',
-                    type: 'text',
-                    validate: validator,
+                    label: 'Video',
+                    value: 'video',
+                },
+                {
+                    label: 'Youtibe ID',
+                    value: 'youtube',
+                },
+                {
+                    label: 'Vimeo ID',
+                    value: 'vimeo',
                 },
             ],
         },
+
         {
-            type: 'row',
-            fields: [
-                {
-                    name: 'image',
-                    type: 'upload',
-                    relationTo: 'media',
-                    validate: validator,
-                },
-                {
-                    name: 'video',
-                    type: 'upload',
-                    relationTo: 'media',
-                    validate: validator,
-                },
-            ],
+            name: 'youtube_id',
+            type: 'text',
+            required: true,
+            admin: {
+                condition: (_, siblingData) => siblingData.type === 'youtube',
+            },
+        },
+        {
+            name: 'vimeo_id',
+            type: 'text',
+            required: true,
+            admin: {
+                condition: (_, siblingData) => siblingData.type === 'vimeo',
+            },
+        },
+        {
+            name: 'image',
+            type: 'upload',
+            relationTo: 'media',
+            required: true,
+            admin: {
+                condition: (_, siblingData) => siblingData.type === 'photo',
+            },
+        },
+        {
+            name: 'video',
+            type: 'upload',
+            relationTo: 'media',
+            required: true,
+            admin: {
+                condition: (_, siblingData) => siblingData.type === 'video',
+            },
         },
     ],
 }

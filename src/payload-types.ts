@@ -19,6 +19,7 @@ export interface Config {
     testimonials: Testimonial;
     websites: Website;
     locales: Locale;
+    menus: Menu;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -33,6 +34,7 @@ export interface Config {
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     websites: WebsitesSelect<false> | WebsitesSelect<true>;
     locales: LocalesSelect<false> | LocalesSelect<true>;
+    menus: MenusSelect<false> | MenusSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -116,9 +118,7 @@ export interface Page {
   website: number | Website;
   locale: number | Locale;
   title: string;
-  sections?:
-    | (Header | Hero | Content | Collection | Longread | Medias | MediaGrid | FAQ | Partners | Testimonials)[]
-    | null;
+  sections?: (Header | Hero | Content | Collection | Longread | Medias | FAQ | Partners | Testimonials)[] | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -184,8 +184,9 @@ export interface Hero {
     icon?: 'default' | null;
     color: 'default' | 'primary' | 'secondary' | 'accent' | 'success' | 'error' | 'warning' | 'info' | 'neutral';
     variant: 'solid' | 'outline' | 'tint' | 'ghost';
-    url?: string | null;
+    type?: ('page' | 'url' | 'url_top') | null;
     page?: (number | null) | Page;
+    url?: string | null;
   };
   options?:
     | {
@@ -230,8 +231,9 @@ export interface Content {
     icon?: 'default' | null;
     color: 'default' | 'primary' | 'secondary' | 'accent' | 'success' | 'error' | 'warning' | 'info' | 'neutral';
     variant: 'solid' | 'outline' | 'tint' | 'ghost';
-    url?: string | null;
+    type?: ('page' | 'url' | 'url_top') | null;
     page?: (number | null) | Page;
+    url?: string | null;
   };
   options?:
     | {
@@ -259,8 +261,9 @@ export interface Collection {
       subtitle?: string | null;
       icon?: 'default' | null;
       image?: (number | null) | Media;
-      url?: string | null;
+      type?: ('page' | 'url' | 'url_top') | null;
       page?: (number | null) | Page;
+      url?: string | null;
     };
     id?: string | null;
   }[];
@@ -320,6 +323,7 @@ export interface Longread {
 export interface Medias {
   items: {
     media_item?: {
+      type?: ('photo' | 'video' | 'youtube' | 'vimeo') | null;
       youtube_id?: string | null;
       vimeo_id?: string | null;
       image?: (number | null) | Media;
@@ -327,27 +331,18 @@ export interface Medias {
     };
     id?: string | null;
   }[];
+  options?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'medias';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaGrid".
- */
-export interface MediaGrid {
-  items: {
-    media_item?: {
-      youtube_id?: string | null;
-      vimeo_id?: string | null;
-      image?: (number | null) | Media;
-      video?: (number | null) | Media;
-    };
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediagrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -402,21 +397,7 @@ export interface Partner {
   id: number;
   name: string;
   image: number | Media;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  description?: string | null;
   url?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -443,6 +424,50 @@ export interface Testimonial {
   image: number | Media;
   description: string;
   url?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menus".
+ */
+export interface Menu {
+  id: number;
+  name: string;
+  website: number | Website;
+  locale: number | Locale;
+  items: (
+    | {
+        title: string;
+        icon?: 'default' | null;
+        image?: (number | null) | Media;
+        items: {
+          menuitem: {
+            title: string;
+            icon?: 'default' | null;
+            image?: (number | null) | Media;
+            type?: ('page' | 'url' | 'url_top') | null;
+            page?: (number | null) | Page;
+            url?: string | null;
+          };
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'menuholder';
+      }
+    | {
+        title: string;
+        icon?: 'default' | null;
+        image?: (number | null) | Media;
+        type?: ('page' | 'url' | 'url_top') | null;
+        page?: (number | null) | Page;
+        url?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'menublock';
+      }
+  )[];
   updatedAt: string;
   createdAt: string;
 }
@@ -484,6 +509,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'locales';
         value: number | Locale;
+      } | null)
+    | ({
+        relationTo: 'menus';
+        value: number | Menu;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -596,8 +625,9 @@ export interface PagesSelect<T extends boolean = true> {
                     icon?: T;
                     color?: T;
                     variant?: T;
-                    url?: T;
+                    type?: T;
                     page?: T;
+                    url?: T;
                   };
               options?: T;
               id?: T;
@@ -619,8 +649,9 @@ export interface PagesSelect<T extends boolean = true> {
                     icon?: T;
                     color?: T;
                     variant?: T;
-                    url?: T;
+                    type?: T;
                     page?: T;
+                    url?: T;
                   };
               options?: T;
               id?: T;
@@ -641,8 +672,9 @@ export interface PagesSelect<T extends boolean = true> {
                           subtitle?: T;
                           icon?: T;
                           image?: T;
-                          url?: T;
+                          type?: T;
                           page?: T;
+                          url?: T;
                         };
                     id?: T;
                   };
@@ -672,6 +704,7 @@ export interface PagesSelect<T extends boolean = true> {
                     media_item?:
                       | T
                       | {
+                          type?: T;
                           youtube_id?: T;
                           vimeo_id?: T;
                           image?: T;
@@ -679,25 +712,7 @@ export interface PagesSelect<T extends boolean = true> {
                         };
                     id?: T;
                   };
-              id?: T;
-              blockName?: T;
-            };
-        mediagrid?:
-          | T
-          | {
-              items?:
-                | T
-                | {
-                    media_item?:
-                      | T
-                      | {
-                          youtube_id?: T;
-                          vimeo_id?: T;
-                          image?: T;
-                          video?: T;
-                        };
-                    id?: T;
-                  };
+              options?: T;
               id?: T;
               blockName?: T;
             };
@@ -797,6 +812,57 @@ export interface LocalesSelect<T extends boolean = true> {
   locale?: T;
   name?: T;
   title?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menus_select".
+ */
+export interface MenusSelect<T extends boolean = true> {
+  name?: T;
+  website?: T;
+  locale?: T;
+  items?:
+    | T
+    | {
+        menuholder?:
+          | T
+          | {
+              title?: T;
+              icon?: T;
+              image?: T;
+              items?:
+                | T
+                | {
+                    menuitem?:
+                      | T
+                      | {
+                          title?: T;
+                          icon?: T;
+                          image?: T;
+                          type?: T;
+                          page?: T;
+                          url?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        menublock?:
+          | T
+          | {
+              title?: T;
+              icon?: T;
+              image?: T;
+              type?: T;
+              page?: T;
+              url?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
 }

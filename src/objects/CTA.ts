@@ -1,5 +1,7 @@
 import { Field, GroupField } from 'payload'
-import { IconField } from './Icon'
+import { IconField } from './IconField'
+import { SelectPageOrURL } from './SelectPageOrURL'
+import { requiredPageOrURL } from './PageOrURL'
 
 export const CTAPresense: Field = {
     name: 'CTA',
@@ -8,11 +10,6 @@ export const CTAPresense: Field = {
     admin: {
         className: 'flex justify-end',
     },
-}
-
-const validator = (value: any, arg: any) => {
-    if (arg.siblingData.url || arg.siblingData.page) return true
-    return 'Either URL or Page is required.'
 }
 
 export const CTA: GroupField = {
@@ -77,19 +74,7 @@ export const CTA: GroupField = {
 
         {
             type: 'row',
-            fields: [
-                {
-                    name: 'url',
-                    type: 'text',
-                    validate: validator,
-                },
-                {
-                    name: 'page',
-                    type: 'relationship',
-                    relationTo: 'pages', // Replace with your page collection slug
-                    validate: validator,
-                },
-            ],
+            fields: [SelectPageOrURL, ...requiredPageOrURL()],
         },
     ],
 }

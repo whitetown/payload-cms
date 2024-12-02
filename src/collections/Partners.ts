@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { plain } from './plain'
+import { RequiredImage } from '@/objects/RequiredImage'
 
 export const Partners: CollectionConfig = {
     slug: 'partners',
@@ -18,12 +19,7 @@ export const Partners: CollectionConfig = {
                     type: 'text',
                     required: true,
                 },
-                {
-                    name: 'image',
-                    type: 'upload',
-                    relationTo: 'media',
-                    required: true,
-                },
+                RequiredImage,
             ],
         },
 

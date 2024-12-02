@@ -2,6 +2,7 @@ import type { Block } from 'payload'
 
 import { CTA, CTAPresense } from '@/objects/CTA'
 import { ImagePlacement } from '@/objects/ImagePlacement'
+import { OptionalImage } from '@/objects/OptionalImage'
 
 const validator = (value: any, arg: any) => {
     if (arg.siblingData.title || arg.siblingData.subtitle || arg.siblingData.text?.root?.children?.length > 0)
@@ -28,11 +29,7 @@ export const Content: Block = {
             type: 'richText',
             validate: validator,
         },
-        {
-            name: 'image',
-            type: 'upload',
-            relationTo: 'media',
-        },
+        OptionalImage,
         { type: 'row', fields: [ImagePlacement, CTAPresense] },
         CTA,
         {

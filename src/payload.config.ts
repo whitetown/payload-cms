@@ -23,6 +23,7 @@ import { Partners } from './collections/Partners'
 import { Testimonials } from './collections/Testimonials'
 import { Websites } from './collections/websites'
 import { Locales } from './collections/locales'
+import { Menus } from './collections/menus'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -56,7 +57,7 @@ export default buildConfig({
         },
     },
 
-    collections: [Users, Media, Pages, FAQEntries, Partners, Testimonials, Websites, Locales],
+    collections: [Users, Media, Pages, FAQEntries, Partners, Testimonials, Websites, Locales, Menus],
     editor: lexicalEditor({ features: ({ defaultFeatures }) => [...defaultFeatures, FixedToolbarFeature()] }),
     secret: process.env.PAYLOAD_SECRET || '',
     typescript: {

@@ -1,4 +1,5 @@
 import { CTA, CTAPresense } from '@/objects/CTA'
+import { OptionalImage } from '@/objects/OptionalImage'
 import { ImagePlacement } from '@/objects/ImagePlacement'
 import type { Block } from 'payload'
 
@@ -15,11 +16,7 @@ export const Hero: Block = {
             name: 'subtitle',
             type: 'text',
         },
-        {
-            name: 'image',
-            type: 'upload',
-            relationTo: 'media',
-        },
+        OptionalImage,
         { type: 'row', fields: [ImagePlacement, CTAPresense] },
         CTA,
         {

@@ -1,5 +1,8 @@
 import { GroupField } from 'payload'
-import { IconField } from './Icon'
+import { IconField } from './IconField'
+import { SelectPageOrURL } from './SelectPageOrURL'
+import { optionalPageOrURL, PageOrURL } from './PageOrURL'
+import { OptionalImage } from './OptionalImage'
 
 const validator = (value: any, arg: any) => {
     if (arg.siblingData.title || arg.siblingData.subtitle || arg.siblingData.headline) return true
@@ -28,29 +31,12 @@ export const Brick: GroupField = {
 
         {
             type: 'row',
-            fields: [
-                IconField,
-                {
-                    name: 'image',
-                    type: 'upload',
-                    relationTo: 'media',
-                },
-            ],
+            fields: [IconField, OptionalImage],
         },
 
         {
             type: 'row',
-            fields: [
-                {
-                    name: 'url',
-                    type: 'text',
-                },
-                {
-                    name: 'page',
-                    type: 'relationship',
-                    relationTo: 'pages', // Replace with your page collection slug
-                },
-            ],
+            fields: [SelectPageOrURL, ...optionalPageOrURL()],
         },
     ],
 }

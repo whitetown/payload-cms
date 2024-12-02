@@ -11,5 +11,10 @@ export const Medias: Block = {
             fields: [MediaItem],
             required: true,
         },
+        {
+            name: 'options',
+            type: 'json',
+            defaultValue: {},
+        },
     ],
 }
