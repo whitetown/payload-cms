@@ -1,38 +1,36 @@
 import { GroupField } from 'payload'
-import { OptionalImage } from './OptionalImage'
-import { RequiredImage } from './RequiredImage'
-
-const validator = (value: any, arg: any) => {
-    if (arg.siblingData.youtube_id || arg.siblingData.vimeo_id || arg.siblingData.image || arg.siblingData.video)
-        return true
-    return 'Either youtube_id or vimeo_id or image or video is required.'
-}
 
 export const MediaItem: GroupField = {
     name: 'media_item',
     type: 'group',
     fields: [
         {
-            name: 'type',
-            type: 'select',
-            defaultValue: 'photo',
-            options: [
+            type: 'row',
+            fields: [
                 {
-                    label: 'Photo',
-                    value: 'photo',
+                    name: 'type',
+                    type: 'select',
+                    defaultValue: 'photo',
+                    options: [
+                        {
+                            label: 'Photo',
+                            value: 'photo',
+                        },
+                        {
+                            label: 'Video',
+                            value: 'video',
+                        },
+                        {
+                            label: 'Youtibe ID',
+                            value: 'youtube',
+                        },
+                        {
+                            label: 'Vimeo ID',
+                            value: 'vimeo',
+                        },
+                    ],
                 },
-                {
-                    label: 'Video',
-                    value: 'video',
-                },
-                {
-                    label: 'Youtibe ID',
-                    value: 'youtube',
-                },
-                {
-                    label: 'Vimeo ID',
-                    value: 'vimeo',
-                },
+                { name: 'title', type: 'text' },
             ],
         },
 

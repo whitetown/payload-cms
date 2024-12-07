@@ -321,9 +321,11 @@ export interface Longread {
  * via the `definition` "Medias".
  */
 export interface Medias {
+  layout: 'column-1' | 'column-2' | 'flex' | 'zigzag' | 'slideshow';
   items: {
     media_item?: {
       type?: ('photo' | 'video' | 'youtube' | 'vimeo') | null;
+      title?: string | null;
       youtube_id?: string | null;
       vimeo_id?: string | null;
       image?: (number | null) | Media;
@@ -433,8 +435,8 @@ export interface Testimonial {
  */
 export interface Menu {
   id: number;
-  name: string;
   website: number | Website;
+  name: string;
   locale: number | Locale;
   items: (
     | {
@@ -698,6 +700,7 @@ export interface PagesSelect<T extends boolean = true> {
         medias?:
           | T
           | {
+              layout?: T;
               items?:
                 | T
                 | {
@@ -705,6 +708,7 @@ export interface PagesSelect<T extends boolean = true> {
                       | T
                       | {
                           type?: T;
+                          title?: T;
                           youtube_id?: T;
                           vimeo_id?: T;
                           image?: T;
@@ -820,8 +824,8 @@ export interface LocalesSelect<T extends boolean = true> {
  * via the `definition` "menus_select".
  */
 export interface MenusSelect<T extends boolean = true> {
-  name?: T;
   website?: T;
+  name?: T;
   locale?: T;
   items?:
     | T

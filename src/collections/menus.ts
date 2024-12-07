@@ -16,16 +16,16 @@ export const Menus: CollectionConfig = {
             type: 'row',
             fields: [
                 {
-                    name: 'name',
-                    type: 'text',
-                    required: true,
-                },
-                {
                     name: 'website',
                     type: 'relationship',
                     relationTo: 'websites',
                     required: true,
                     defaultValue: 1,
+                },
+                {
+                    name: 'name',
+                    type: 'text',
+                    required: true,
                 },
                 {
                     name: 'locale',
