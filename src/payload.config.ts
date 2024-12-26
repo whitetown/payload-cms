@@ -8,6 +8,8 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 
 import { en } from '@payloadcms/translations/languages/en'
 import { de } from '@payloadcms/translations/languages/de'
@@ -24,6 +26,7 @@ import { Testimonials } from './collections/Testimonials'
 import { Websites } from './collections/websites'
 import { Locales } from './collections/locales'
 import { Menus } from './collections/menus'
+import { Surveys } from './collections/surveys'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -57,7 +60,7 @@ export default buildConfig({
         },
     },
 
-    collections: [Users, Media, Pages, FAQEntries, Partners, Testimonials, Websites, Locales, Menus],
+    collections: [Users, Media, Pages, FAQEntries, Partners, Testimonials, Websites, Locales, Menus, Surveys],
     editor: lexicalEditor({ features: ({ defaultFeatures }) => [...defaultFeatures, FixedToolbarFeature()] }),
     secret: process.env.PAYLOAD_SECRET || '',
     typescript: {
@@ -69,6 +72,23 @@ export default buildConfig({
         },
     }),
     sharp,
+
+    /*
+    email: nodemailerAdapter({
+        defaultFromAddress: 'noreply@cloomba.com',
+        defaultFromName: 'Cloomba',
+        // Nodemailer transportOptions
+        transportOptions: {
+            host: process.env.SMTP_HOST,
+            port: 587,
+            auth: {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS,
+            },
+        },
+    }),
+    */
+
     plugins: [
         payloadCloudPlugin(),
         seoPlugin({
@@ -78,6 +98,17 @@ export default buildConfig({
             // uploadsCollection: 'media',
             generateTitle: ({ doc }) => doc.title || '',
             generateDescription: ({ doc }) => doc.excerpt,
+        }),
+        formBuilderPlugin({
+            // see below for a list of available options
+            redirectRelationships: ['pages'],
+            // beforeEmail: (emails, beforeChangeParams) => {
+            //     // modify the emails in any way before they are sent
+            //     return emails.map((email) => ({
+            //         ...email,
+            //         html: email.html, // transform the html in any way you'd like (maybe wrap it in an html template?)
+            //     }))
+            // },
         }),
         // storage-adapter-placeholder
         ...MediaStorage,

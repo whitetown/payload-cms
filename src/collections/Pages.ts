@@ -13,6 +13,8 @@ import { Partners } from '@/sections/Partners'
 import { Testimonials } from '@/sections/Testimonials'
 import { plain } from './plain'
 import { Metatags } from '@/objects/Metatag'
+import { Survey } from '@/sections/survey'
+import { Forms } from '@/sections/forms'
 
 export const Pages: CollectionConfig = {
     slug: 'pages',
@@ -68,7 +70,19 @@ export const Pages: CollectionConfig = {
                         {
                             name: 'sections',
                             type: 'blocks',
-                            blocks: [Header, Hero, Content, Collection, Longread, Medias, FAQ, Partners, Testimonials],
+                            blocks: [
+                                Header,
+                                Hero,
+                                Content,
+                                Collection,
+                                Longread,
+                                Medias,
+                                FAQ,
+                                Partners,
+                                Testimonials,
+                                Survey,
+                                Forms,
+                            ],
                         },
                     ],
                 },
