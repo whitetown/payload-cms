@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { plain } from './plain'
+import { plain } from '../helpers/plain'
 import { MenuHolder } from '@/objects/MenuHolder'
 import { MenuBlock, MenuItem } from '@/objects/MenuItem'
 

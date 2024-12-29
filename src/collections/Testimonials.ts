@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { plain } from './plain'
+import { plain } from '../helpers/plain'
 import { RequiredImage } from '@/objects/RequiredImage'
 
 export const Testimonials: CollectionConfig = {

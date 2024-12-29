@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { plain } from './plain'
+import { plain } from '../helpers/plain'
 
 export const Websites: CollectionConfig = {
     slug: 'websites',

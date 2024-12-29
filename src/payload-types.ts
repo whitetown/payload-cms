@@ -21,6 +21,7 @@ export interface Config {
     locales: Locale;
     menus: Menu;
     surveys: Survey1;
+    'survey-responses': SurveyResponse;
     forms: Form;
     'form-submissions': FormSubmission;
     'payload-locked-documents': PayloadLockedDocument;
@@ -33,13 +34,14 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     faqentries: FaqentriesSelect<false> | FaqentriesSelect<true>;
-    partners: PartnersSelect<false> | PartnersSelect<true>;
-    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
+    partners: PartnersSelect1<false> | PartnersSelect1<true>;
+    testimonials: TestimonialsSelect1<false> | TestimonialsSelect1<true>;
     websites: WebsitesSelect<false> | WebsitesSelect<true>;
     locales: LocalesSelect<false> | LocalesSelect<true>;
     menus: MenusSelect<false> | MenusSelect<true>;
     surveys: SurveysSelect<false> | SurveysSelect<true>;
-    forms: FormsSelect<false> | FormsSelect<true>;
+    'survey-responses': SurveyResponsesSelect<false> | SurveyResponsesSelect<true>;
+    forms: FormsSelect1<false> | FormsSelect1<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -733,6 +735,9 @@ export interface Form {
       )[]
     | null;
   submitButtonLabel?: string | null;
+  /**
+   * Choose whether to display an on-page message or redirect to a different page after they submit the form.
+   */
   confirmationType?: ('message' | 'redirect') | null;
   confirmationMessage?: {
     root: {
@@ -757,6 +762,9 @@ export interface Form {
     } | null;
     url?: string | null;
   };
+  /**
+   * Send custom emails when the form submits. Use comma separated lists to send the same email to multiple recipients. To reference a value from this form, wrap that field's name with double curly brackets, i.e. {{firstName}}. You can use a wildcard {{*}} to output all data and {{*:table}} to format it as an HTML table in the email.
+   */
   emails?:
     | {
         emailTo?: string | null;
@@ -765,6 +773,9 @@ export interface Form {
         replyTo?: string | null;
         emailFrom?: string | null;
         subject: string;
+        /**
+         * Enter the message that should be sent in this email.
+         */
         message?: {
           root: {
             type: string;
@@ -832,6 +843,35 @@ export interface Menu {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "survey-responses".
+ */
+export interface SurveyResponse {
+  id: number;
+  survey: number | Survey1;
+  ip?: string | null;
+  response:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  userdata:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
@@ -893,6 +933,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'surveys';
         value: number | Survey1;
+      } | null)
+    | ({
+        relationTo: 'survey-responses';
+        value: number | SurveyResponse;
       } | null)
     | ({
         relationTo: 'forms';
@@ -990,157 +1034,17 @@ export interface PagesSelect<T extends boolean = true> {
   sections?:
     | T
     | {
-        header?:
-          | T
-          | {
-              title?: T;
-              subtitle?: T;
-              id?: T;
-              blockName?: T;
-            };
-        hero?:
-          | T
-          | {
-              title?: T;
-              subtitle?: T;
-              image?: T;
-              imagePlacement?: T;
-              CTA?: T;
-              cta?:
-                | T
-                | {
-                    title?: T;
-                    icon?: T;
-                    color?: T;
-                    variant?: T;
-                    type?: T;
-                    page?: T;
-                    url?: T;
-                  };
-              options?: T;
-              id?: T;
-              blockName?: T;
-            };
-        content?:
-          | T
-          | {
-              title?: T;
-              subtitle?: T;
-              text?: T;
-              image?: T;
-              imagePlacement?: T;
-              CTA?: T;
-              cta?:
-                | T
-                | {
-                    title?: T;
-                    icon?: T;
-                    color?: T;
-                    variant?: T;
-                    type?: T;
-                    page?: T;
-                    url?: T;
-                  };
-              options?: T;
-              id?: T;
-              blockName?: T;
-            };
-        collection?:
-          | T
-          | {
-              kind?: T;
-              items?:
-                | T
-                | {
-                    brick?:
-                      | T
-                      | {
-                          headline?: T;
-                          title?: T;
-                          subtitle?: T;
-                          icon?: T;
-                          image?: T;
-                          type?: T;
-                          page?: T;
-                          url?: T;
-                        };
-                    id?: T;
-                  };
-              options?: T;
-              id?: T;
-              blockName?: T;
-            };
-        longread?:
-          | T
-          | {
-              items?:
-                | T
-                | {
-                    text?: T;
-                    id?: T;
-                  };
-              options?: T;
-              id?: T;
-              blockName?: T;
-            };
-        medias?:
-          | T
-          | {
-              layout?: T;
-              items?:
-                | T
-                | {
-                    media_item?:
-                      | T
-                      | {
-                          type?: T;
-                          title?: T;
-                          youtube_id?: T;
-                          vimeo_id?: T;
-                          image?: T;
-                          video?: T;
-                        };
-                    id?: T;
-                  };
-              options?: T;
-              id?: T;
-              blockName?: T;
-            };
-        faq?:
-          | T
-          | {
-              items?: T;
-              id?: T;
-              blockName?: T;
-            };
-        partners?:
-          | T
-          | {
-              items?: T;
-              id?: T;
-              blockName?: T;
-            };
-        testimonials?:
-          | T
-          | {
-              items?: T;
-              id?: T;
-              blockName?: T;
-            };
-        survey?:
-          | T
-          | {
-              survey?: T;
-              id?: T;
-              blockName?: T;
-            };
-        forms?:
-          | T
-          | {
-              form?: T;
-              id?: T;
-              blockName?: T;
-            };
+        header?: T | HeaderSelect<T>;
+        hero?: T | HeroSelect<T>;
+        content?: T | ContentSelect<T>;
+        collection?: T | CollectionSelect<T>;
+        longread?: T | LongreadSelect<T>;
+        medias?: T | MediasSelect<T>;
+        faq?: T | FAQSelect<T>;
+        partners?: T | PartnersSelect<T>;
+        testimonials?: T | TestimonialsSelect<T>;
+        survey?: T | SurveySelect<T>;
+        forms?: T | FormsSelect<T>;
       };
   meta?:
     | T
@@ -1164,6 +1068,179 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Header_select".
+ */
+export interface HeaderSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero_select".
+ */
+export interface HeroSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  image?: T;
+  imagePlacement?: T;
+  CTA?: T;
+  cta?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        color?: T;
+        variant?: T;
+        type?: T;
+        page?: T;
+        url?: T;
+      };
+  options?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Content_select".
+ */
+export interface ContentSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  text?: T;
+  image?: T;
+  imagePlacement?: T;
+  CTA?: T;
+  cta?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        color?: T;
+        variant?: T;
+        type?: T;
+        page?: T;
+        url?: T;
+      };
+  options?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Collection_select".
+ */
+export interface CollectionSelect<T extends boolean = true> {
+  kind?: T;
+  items?:
+    | T
+    | {
+        brick?:
+          | T
+          | {
+              headline?: T;
+              title?: T;
+              subtitle?: T;
+              icon?: T;
+              image?: T;
+              type?: T;
+              page?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  options?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Longread_select".
+ */
+export interface LongreadSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  options?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Medias_select".
+ */
+export interface MediasSelect<T extends boolean = true> {
+  layout?: T;
+  items?:
+    | T
+    | {
+        media_item?:
+          | T
+          | {
+              type?: T;
+              title?: T;
+              youtube_id?: T;
+              vimeo_id?: T;
+              image?: T;
+              video?: T;
+            };
+        id?: T;
+      };
+  options?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQ_select".
+ */
+export interface FAQSelect<T extends boolean = true> {
+  items?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  items?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Testimonials_select".
+ */
+export interface TestimonialsSelect<T extends boolean = true> {
+  items?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Survey_select".
+ */
+export interface SurveySelect<T extends boolean = true> {
+  survey?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Forms_select".
+ */
+export interface FormsSelect<T extends boolean = true> {
+  form?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "faqentries_select".
  */
 export interface FaqentriesSelect<T extends boolean = true> {
@@ -1176,7 +1253,7 @@ export interface FaqentriesSelect<T extends boolean = true> {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "partners_select".
  */
-export interface PartnersSelect<T extends boolean = true> {
+export interface PartnersSelect1<T extends boolean = true> {
   name?: T;
   image?: T;
   description?: T;
@@ -1188,7 +1265,7 @@ export interface PartnersSelect<T extends boolean = true> {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "testimonials_select".
  */
-export interface TestimonialsSelect<T extends boolean = true> {
+export interface TestimonialsSelect1<T extends boolean = true> {
   name?: T;
   company?: T;
   position?: T;
@@ -1430,9 +1507,21 @@ export interface SurveysSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "survey-responses_select".
+ */
+export interface SurveyResponsesSelect<T extends boolean = true> {
+  survey?: T;
+  ip?: T;
+  response?: T;
+  userdata?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "forms_select".
  */
-export interface FormsSelect<T extends boolean = true> {
+export interface FormsSelect1<T extends boolean = true> {
   title?: T;
   fields?:
     | T

@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { plain } from './plain'
+import { plain } from '../helpers/plain'
 import { SurveyPage } from '@/objects/survey/SurveyPage'
 
 export const Surveys: CollectionConfig = {

@@ -26,7 +26,8 @@ import { Testimonials } from './collections/Testimonials'
 import { Websites } from './collections/websites'
 import { Locales } from './collections/locales'
 import { Menus } from './collections/menus'
-import { Surveys } from './collections/surveys'
+import { Surveys } from './collections/Surveys'
+import { SurveyResponses } from './collections/SurveyResponses'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -60,7 +61,19 @@ export default buildConfig({
         },
     },
 
-    collections: [Users, Media, Pages, FAQEntries, Partners, Testimonials, Websites, Locales, Menus, Surveys],
+    collections: [
+        Users,
+        Media,
+        Pages,
+        FAQEntries,
+        Partners,
+        Testimonials,
+        Websites,
+        Locales,
+        Menus,
+        Surveys,
+        SurveyResponses,
+    ],
     editor: lexicalEditor({ features: ({ defaultFeatures }) => [...defaultFeatures, FixedToolbarFeature()] }),
     secret: process.env.PAYLOAD_SECRET || '',
     typescript: {
@@ -72,6 +85,9 @@ export default buildConfig({
         },
     }),
     sharp,
+    cors: {
+        origins: ['http://localhost:3000'],
+    },
 
     /*
     email: nodemailerAdapter({
